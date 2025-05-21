@@ -2,6 +2,8 @@ package com.example.galaxiexplorer.Model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "utilisateur")
 public class Utilisateur {
@@ -15,6 +17,9 @@ public class Utilisateur {
     private String username;
     private String password;
     private String role = "USER";
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Planete> planetes;
 
     public Utilisateur() {
     }

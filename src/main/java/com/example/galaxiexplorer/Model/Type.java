@@ -4,7 +4,7 @@ public enum Type {
     GAZ("Gazeuse"),
     ROCHE("Tellurique"),
     EAU("Océanique"),
-    Feu("Volcanique"),
+    FEU("Volcanique"),
     GLACEE("Glacée"),
     DESERT("Désertique"),
     ARTIFI("Artificielle");

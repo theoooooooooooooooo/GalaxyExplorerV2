@@ -22,8 +22,8 @@ public class PlaneteService {
         return planeteRepository.findById(id);
     }
 
-    public Planete addPlanete(Planete planete){
-        return planeteRepository.save(planete);
+    public Planete addPlanete(Planete planete) {
+        return planeteRepository.save(planete); // <--- obligatoire
     }
 
     public void deletePlanete(Long id){

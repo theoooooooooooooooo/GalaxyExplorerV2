@@ -12,18 +12,24 @@ public class Planete {
     private String nom;
     private String description;
     private String image;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private Type type;
     private Integer positionX;
     private Integer positionY;
     private Boolean habitable;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "galaxy_id")
     private Galaxy galaxy;
 
+    @ManyToOne
+    @JoinColumn(name = "utilisateur_id")
+    private Utilisateur utilisateur;
+
     public Planete() {}
 
-    public Planete(Long id, String nom, String description, String image, Type type, Integer positionX, Integer positionY, Boolean habitable, Galaxy galaxy) {
+    public Planete(Long id, String nom, String description, String image, Type type, Integer positionX, Integer positionY, Boolean habitable, Galaxy galaxy, Utilisateur utilisateur) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -33,6 +39,7 @@ public class Planete {
         this.positionY = positionY;
         this.habitable = habitable;
         this.galaxy = galaxy;
+        this.utilisateur = utilisateur;
     }
 
     public Long getId() {
@@ -105,5 +112,13 @@ public class Planete {
 
     public void setGalaxy(Galaxy galaxy) {
         this.galaxy = galaxy;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }

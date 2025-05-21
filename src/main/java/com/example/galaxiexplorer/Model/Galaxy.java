@@ -14,7 +14,7 @@ public class Galaxy {
     private String nom;
     private String description;
 
-    @OneToMany(mappedBy = "galaxy")
+    @OneToMany(mappedBy = "galaxy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Planete> planetes;
 
     public Galaxy() {

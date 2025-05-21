@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Créer une planète</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h2>Créer une planète</h2>
+
+    <form th:action="@{/Planetes/enregistrer}" th:object="${planete}" method="post" class="mt-4">
+
+        <div class="mb-3">
+            <label class="form-label">Nom</label>
+            <input type="text" th:field="*{nom}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea th:field="*{description}" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Image (URL)</label>
+            <input type="text" th:field="*{image}" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Type</label>
+            <select class="form-select" id="type" th:field="*{type}" >
+                <option th:value="GAZ">Gazeuse</option>
+                <option th:value="ROCHE">Tellurique</option>
+                <option th:value="EAU">Océanique</option>
+                <option th:value="FEU">Volcanique</option>
+                <option th:value="GLACEE">Glacée</option>
+                <option th:value="DESERT">Désertique</option>
+                <option th:value="ARTIFI">Artificielle</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="col mb-3">
+                <label class="form-label">Position X</label>
+                <input type="number" th:field="*{positionX}" class="form-control">
+            </div>
+            <div class="col mb-3">
+                <label class="form-label">Position Y</label>
+                <input type="number" th:field="*{positionY}" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" th:field="*{habitable}" class="form-check-input" id="habitableCheck">
+            <label class="form-check-label" for="habitableCheck">Habitable</label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Galaxie</label>
+            <select th:field="*{galaxy}" class="form-select">
+                <option th:each="galaxy : ${galaxies}"
+                        th:value="${galaxy.id}"
+                        th:text="${galaxy.nom}">Galaxie</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Créer</button>
+    </form>
+</section>
+</body>
+</html>

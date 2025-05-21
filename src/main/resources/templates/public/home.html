@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Accueil</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>Galaxy</h1>
+
+    <div th:each="galaxy : ${galaxies}" class="mb-5">
+        <h2 th:text="${galaxy.nom}"></h2>
+        <p th:text="${galaxy.description}"></p>
+
+        <h4>Planètes :</h4>
+        <ul>
+            <li th:each="planete : ${planetes}">
+                <strong th:text="${planete.nom}"></strong> -
+                <span th:text="${planete.description}"></span>
+            </li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>
