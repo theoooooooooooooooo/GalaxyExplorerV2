@@ -9,7 +9,7 @@
 <section layout:fragment="content">
     <h2>Créer une planète</h2>
 
-    <form th:action="@{/Planetes/enregistrer}" th:object="${planete}" method="post" class="mt-4">
+    <form th:action="@{/Planetes/enregistrer}" th:object="${planete}" method="post" class="mt-4" enctype="multipart/form-data">
 
         <div class="mb-3">
             <label class="form-label">Nom</label>
@@ -21,10 +21,10 @@
             <textarea th:field="*{description}" class="form-control" rows="3"></textarea>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Image (URL)</label>
-            <input type="text" th:field="*{image}" class="form-control">
-        </div>
+<!--        <div class="mb-3">-->
+<!--            <label class="form-label">Image (URL)</label>-->
+<!--            <input type="file" name="image" accept="image/*">-->
+<!--        </div>-->
 
         <div class="mb-3">
             <label class="form-label">Type</label>
@@ -41,12 +41,13 @@
 
         <div class="row">
             <div class="col mb-3">
-                <label class="form-label">Position X</label>
-                <input type="number" th:field="*{positionX}" class="form-control">
+                <label for="positionX" class="form-label">Position X</label>
+                <input type="number" step="0.01" class="form-control" id="positionX" name="positionX" required>
             </div>
+
             <div class="col mb-3">
-                <label class="form-label">Position Y</label>
-                <input type="number" th:field="*{positionY}" class="form-control">
+                <label for="positionY" class="form-label">Position Y</label>
+                <input type="number" step="0.01" class="form-control" id="positionY" name="positionY" required>
             </div>
         </div>
 
@@ -56,15 +57,16 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Galaxie</label>
-            <select th:field="*{galaxy}" class="form-select">
+            <label for="galaxy">Galaxie</label>
+            <select class="form-select" id="galaxy" name="galaxy.id" required>
+                <option value="" disabled selected>Choisir une galaxie</option>
                 <option th:each="galaxy : ${galaxies}"
                         th:value="${galaxy.id}"
-                        th:text="${galaxy.nom}">Galaxie</option>
+                        th:text="${galaxy.nom}"></option>
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Créer</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
     </form>
 </section>
 </body>

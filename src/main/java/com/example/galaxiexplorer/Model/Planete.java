@@ -11,12 +11,12 @@ public class Planete {
     private Long id;
     private String nom;
     private String description;
-    private String image;
+//    private String image;
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private Type type;
-    private Integer positionX;
-    private Integer positionY;
+    private Double positionX;
+    private Double positionY;
     private Boolean habitable;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,11 +29,10 @@ public class Planete {
 
     public Planete() {}
 
-    public Planete(Long id, String nom, String description, String image, Type type, Integer positionX, Integer positionY, Boolean habitable, Galaxy galaxy, Utilisateur utilisateur) {
+    public Planete(Long id, String nom, String description, Type type, Double positionX, Double positionY, Boolean habitable, Galaxy galaxy, Utilisateur utilisateur) {
         this.id = id;
         this.nom = nom;
         this.description = description;
-        this.image = image;
         this.type = type;
         this.positionX = positionX;
         this.positionY = positionY;
@@ -41,6 +40,19 @@ public class Planete {
         this.galaxy = galaxy;
         this.utilisateur = utilisateur;
     }
+
+    //    public Planete(Long id, String nom, String description, String image, Type type, Double positionX, Double positionY, Boolean habitable, Galaxy galaxy, Utilisateur utilisateur) {
+//        this.id = id;
+//        this.nom = nom;
+//        this.description = description;
+//        this.image = image;
+//        this.type = type;
+//        this.positionX = positionX;
+//        this.positionY = positionY;
+//        this.habitable = habitable;
+//        this.galaxy = galaxy;
+//        this.utilisateur = utilisateur;
+//    }
 
     public Long getId() {
         return id;
@@ -66,13 +78,13 @@ public class Planete {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
+//    public String getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(String image) {
+//        this.image = image;
+//    }
 
     public Type getType() {
         return type;
@@ -82,19 +94,19 @@ public class Planete {
         this.type = type;
     }
 
-    public Integer getPositionX() {
+    public Double getPositionX() {
         return positionX;
     }
 
-    public void setPositionX(Integer positionX) {
+    public void setPositionX(Double positionX) {
         this.positionX = positionX;
     }
 
-    public Integer getPositionY() {
+    public Double getPositionY() {
         return positionY;
     }
 
-    public void setPositionY(Integer positionY) {
+    public void setPositionY(Double positionY) {
         this.positionY = positionY;
     }
 

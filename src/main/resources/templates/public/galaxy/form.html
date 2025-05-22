@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Créer une planète</title>
+</head>
+<body>
+    <section layout:fragment="content">
+        <h2>Créer une nouvelle Galaxie</h2>
+        <form th:action="@{/Galaxy/enregistrer}" th:object="${galaxy}" method="post" class="mt-4">
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom de la galaxie</label>
+                <input type="text" th:field="*{nom}" class="form-control" id="nom" placeholder="Entrez le nom">
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea th:field="*{description}" class="form-control" id="description" rows="3"
+                          placeholder="Décrivez la galaxie..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Créer</button>
+            <a th:href="@{/}" class="btn btn-secondary ms-2">Annuler</a>
+        </form>
+    </section>
+</body>
+</html>
