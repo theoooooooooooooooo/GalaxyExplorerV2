@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+body {
+    background: url('/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Orbitron', sans-serif;
+    color: #e0e0ff;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    backdrop-filter: blur(1px);
+}
+
+.page-title {
+    text-align: center;
+    font-size: 3rem;
+    margin: 50px 0 30px;
+    color: #66e0ff;
+    text-shadow: 0 0 15px #00ffff, 0 0 30px #66e0ff;
+}
+
+.galaxy-section {
+    margin-bottom: 60px;
+    border-left: 4px solid #8855ff;
+    padding-left: 15px;
+}
+
+.galaxy-title {
+    font-size: 2rem;
+    color: #ffccff;
+    text-shadow: 0 0 12px #aa66ff;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.planete-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+    gap: 25px;
+}
+
+.planete-card {
+    background: rgba(20, 20, 40, 0.9);
+    border: 2px solid #330066;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 0 10px #220033, 0 0 20px #5500aa inset;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    position: relative;
+}
+
+.planete-card:hover {
+    transform: scale(1.07);
+    z-index: 10;
+    box-shadow: 0 0 20px #66e0ff, 0 0 30px #330099;
+}
+
+.planete-card h3 {
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+    margin-top: 0;
+}
+
+.planete-card p {
+    color: #d0d0ff;
+    margin: 6px 0;
+}
+
+.planete-card p strong {
+    color: #aa66ff;
+}
+
+/* Conteneur large et centré mais avec style du background et couleurs de base */
+.planete-detail {
+    display: flex;
+    justify-content: center;
+    padding: 50px 15px 80px;
+}
+
+.container-detail {
+    background: rgba(20, 20, 40, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 0 25px #5500aa88;
+    padding: 40px 50px;
+    max-width: 650px;
+    width: 100%;
+    color: #e0e0ff;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.planete-detail .page-title {
+    text-align: center;
+    color: #66e0ff;
+    text-shadow: 0 0 15px #00ffff, 0 0 30px #66e0ff;
+    margin-bottom: 30px;
+}
+
+.planete-detail p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    margin: 15px 0;
+    color: #d0d0ff;
+}
+
+.planete-detail p strong {
+    color: #aa66ff;
+}
+
+.planete-detail .actions {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.planete-detail .actions a.btn {
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #111;
+    box-shadow: 0 0 12px #66e0ffaa;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    cursor: pointer;
+}
+
+.planete-detail .actions a.btn.edit {
+    background-color: #66e0ff;
+}
+
+.planete-detail .actions a.btn.edit:hover {
+    background-color: #99bbff;
+    box-shadow: 0 0 25px #99bbffcc;
+}
+
+.planete-detail .actions a.btn.delete {
+    background-color: #ff6666;
+    color: #fff;
+}
+
+.planete-detail .actions a.btn.delete:hover {
+    background-color: #ff8888;
+    box-shadow: 0 0 25px #ff8888cc;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: rgba(20, 20, 40, 0.85);
+    border-radius: 20px;
+    box-shadow: 0 0 25px #5500aa99;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+    color: #66e0ff;
+    text-shadow: 0 0 12px #00ffff;
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.btn-add {
+    background-color: #33ffcc;
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 0 15px #33ffccaa;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #66ffe0;
+    box-shadow: 0 0 25px #66ffe0cc;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: rgba(30, 30, 60, 0.9);
+    border: 2px solid #440088;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 0 10px #220033, 0 0 20px #5500aa inset;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+}
+
+.card:hover {
+    transform: scale(1.05);
+    z-index: 2;
+    box-shadow: 0 0 25px #66e0ff, 0 0 40px #330099;
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+    font-size: 1.5rem;
+}
+
+.card p {
+    color: #d0d0ff;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.card-buttons .btn-edit,
+.card-buttons .btn-delete {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-buttons .btn-edit {
+    background-color: #66aaff;
+    color: #000;
+    box-shadow: 0 0 10px #66aaff99;
+}
+
+.card-buttons .btn-edit:hover {
+    background-color: #99bbff;
+    box-shadow: 0 0 20px #99bbffcc;
+}
+
+.card-buttons .btn-delete {
+    background-color: #ff6666;
+    color: #fff;
+    box-shadow: 0 0 10px #ff666699;
+}
+
+.card-buttons .btn-delete:hover {
+    background-color: #ff8888;
+    box-shadow: 0 0 20px #ff8888cc;
+}
+

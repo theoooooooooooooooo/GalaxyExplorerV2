@@ -7,19 +7,23 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <h1>Galaxy</h1>
+    <h1 class="page-title">Galaxies</h1>
 
-    <div th:each="galaxy : ${galaxies}" class="mb-5">
-        <h2 th:text="${galaxy.nom}"></h2>
-        <p th:text="${galaxy.description}"></p>
+    <div th:each="galaxy : ${galaxies}" class="galaxy-section">
+        <h2 class="galaxy-title" th:text="${galaxy.nom}"></h2>
 
-        <h4>Planètes :</h4>
-        <ul>
-            <li th:each="planete : ${planetes}">
-                <strong th:text="${planete.nom}"></strong> -
-                <span th:text="${planete.description}"></span>
-            </li>
-        </ul>
+        <div class="planete-grid">
+            <div class="planete-card"
+                 th:each="planete : ${galaxy.planetes}"
+                 th:onclick="'window.location.href=\'/Planetes/details/' + ${planete.id} + '\';'">
+
+                <h3 th:text="${planete.nom}"></h3>
+                <p><strong>Position X:</strong> <span th:text="${planete.positionX}"></span></p>
+                <p><strong>Position Y:</strong> <span th:text="${planete.positionY}"></span></p>
+                <p><strong>Type:</strong> <span th:text="${planete.type}"></span></p>
+                <p><strong>Habitable:</strong> <span th:text="${planete.habitable ? 'Oui' : 'Non'}"></span></p>
+            </div>
+        </div>
     </div>
 </section>
 </body>

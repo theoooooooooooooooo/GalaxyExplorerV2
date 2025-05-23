@@ -6,7 +6,7 @@
     <title>Créer une planète</title>
 </head>
 <body>
-    <section layout:fragment="content">
+    <section layout:fragment="content" class="formulaire-container">
         <h2>Créer une nouvelle Galaxie</h2>
         <form th:action="@{/Galaxy/enregistrer}" th:object="${galaxy}" method="post" class="mt-4">
             <div class="mb-3">

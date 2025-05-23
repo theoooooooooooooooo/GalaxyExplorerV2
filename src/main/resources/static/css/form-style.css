@@ -1,0 +1,96 @@
+/* Formulaires galactiques */
+.formulaire-container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: rgba(30, 30, 60, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px #5500aa88;
+    backdrop-filter: blur(6px);
+}
+
+.formulaire-container h2,
+.formulaire-container h1 {
+    text-align: center;
+    color: #66e0ff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px #00ffff, 0 0 30px #66e0ff;
+}
+
+.form-label {
+    color: #e0e0ff;
+    font-weight: 600;
+    text-shadow: 0 0 6px #aa66ff;
+}
+
+.form-control,
+.form-select {
+    background: rgba(20, 20, 40, 0.9);
+    border: 1px solid #440088;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 10px 15px;
+    box-shadow: inset 0 0 10px #33006699;
+    font-size: 1rem;
+}
+
+.form-control::placeholder {
+    color: #ccccff;
+}
+
+.form-check-label {
+    color: #d0d0ff;
+    margin-left: 5px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background-color: #66e0ff;
+    color: #000;
+    box-shadow: 0 0 15px #66e0ffaa;
+}
+
+.btn-primary:hover {
+    background-color: #99bbff;
+    box-shadow: 0 0 25px #99bbffcc;
+}
+
+.btn-success {
+    background-color: #33ffcc;
+    color: #000;
+    box-shadow: 0 0 15px #33ffccaa;
+}
+
+.btn-success:hover {
+    background-color: #66ffe0;
+    box-shadow: 0 0 25px #66ffe0cc;
+}
+
+.btn-secondary {
+    background-color: #ccccff;
+    color: #000;
+}
+
+.btn-secondary:hover {
+    background-color: #e0e0ff;
+    box-shadow: 0 0 10px #ccccff88;
+}
+
+.text-danger,
+.text-success {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 10px;
+}

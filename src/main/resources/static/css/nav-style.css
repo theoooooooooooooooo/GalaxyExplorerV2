@@ -1,0 +1,57 @@
+/* === NAVBAR FUTURISTE GALAXIA === */
+.galaxia-navbar {
+    background: rgba(10, 10, 30, 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px #5500ff99;
+    border-bottom: 2px solid #6600ff66;
+    padding: 15px 25px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.galaxia-logo {
+    font-size: 1.8rem;
+    color: #66e0ff;
+    text-shadow: 0 0 8px #00ffff;
+    letter-spacing: 2px;
+}
+
+.galaxia-nav-links .nav-link {
+    color: #ccccff;
+    margin-left: 20px;
+    font-weight: 500;
+    transition: color 0.3s, text-shadow 0.3s;
+    position: relative;
+}
+
+.galaxia-nav-links .nav-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px #66e0ff;
+}
+
+.galaxia-nav-links .nav-link::after {
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    background: #66e0ff;
+    transition: width 0.3s ease-in-out;
+    margin-top: 5px;
+}
+
+.galaxia-nav-links .nav-link:hover::after {
+    width: 100%;
+}
+
+.galaxia-logout {
+    color: #ff6666 !important;
+    text-shadow: 0 0 6px #ff4444;
+}
+
+.navbar-toggler {
+    border: none;
+    background: transparent;
+}
+
+.navbar-toggler-icon {
+    filter: invert(100%);
+}
