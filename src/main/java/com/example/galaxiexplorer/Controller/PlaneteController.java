@@ -9,10 +9,7 @@ import com.example.galaxiexplorer.Service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -54,5 +51,47 @@ public class PlaneteController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/Planetes/details/{id}")
+    public String details(@PathVariable Long id, Model model) {
+        Planete planete = planeteService.getPlaneteById(id).orElse(null);
+        model.addAttribute("planete", planete);
+        return "authentification/planete/details"; // ta page detail.html
+    }
+
+    @GetMapping("/Planetes/modifier/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Planete planete = planeteService.getPlaneteById(id).orElse(null);
+        if (planete == null) {
+            return "redirect:/"; // ou une page d'erreur
+        }
+        model.addAttribute("planete", planete);
+        model.addAttribute("galaxies", galaxyService.getAllGalaxies());
+        return "authentification/planete/form"; // même formulaire que création
+    }
+
+    @PostMapping("/Planetes/modifier/{id}")
+    public String modifier(@PathVariable Long id, @ModelAttribute Planete updatedPlanete) {
+        Planete existingPlanete = planeteService.getPlaneteById(id).orElse(null);
+        if (existingPlanete != null) {
+            existingPlanete.setNom(updatedPlanete.getNom());
+            existingPlanete.setDescription(updatedPlanete.getDescription());
+            existingPlanete.setPositionX(updatedPlanete.getPositionX());
+            existingPlanete.setPositionY(updatedPlanete.getPositionY());
+            existingPlanete.setType(updatedPlanete.getType());
+            existingPlanete.setHabitable(updatedPlanete.getHabitable());
+            existingPlanete.setGalaxy(updatedPlanete.getGalaxy());
+
+            planeteService.addPlanete(existingPlanete);
+        }
+        return "redirect:/Planetes/details/" + id;
+    }
+
+    @GetMapping("/Planetes/supprimer/{id}")
+    public String supprimer(@PathVariable Long id) {
+        planeteService.deletePlanete(id);
+        return "redirect:/";
+    }
+
 
 }

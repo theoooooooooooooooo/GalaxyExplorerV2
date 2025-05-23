@@ -20,19 +20,14 @@ public class HomeController {
     private PlaneteService planeteService;
 
     @GetMapping("/")
-//    public String home(Model model) {
-//        List<Galaxy> galaxies = galaxyService.getAllGalaxies();
-//        for (Galaxy g : galaxies) {
-//            System.out.println("Galaxy: " + g.getNom());
-//            System.out.println("Planètes: " + g.getPlanetes());
-//
-//        }
-//        model.addAttribute("galaxies", galaxies);
-//        return "public/home";
-//    }
     public String home(Model model) {
-        List<Planete> planetes = planeteService.getAllPlanete();
-        model.addAttribute("planetes", planetes);
+        List<Galaxy> galaxies = galaxyService.getAllGalaxies();
+        for (Galaxy g : galaxies) {
+            System.out.println("Galaxy: " + g.getNom());
+            System.out.println("Planètes: " + g.getPlanetes());
+
+        }
+        model.addAttribute("galaxies", galaxies);
         return "public/home";
     }
 
