@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+    <title>Créer un compte</title>
+</head>
+<body>
+<section layout:fragment="content" class="planete-detail">
+    <div class="container-detail">
+        <h1 th:text="${planete.nom}" class="page-title">Nom Planète</h1>
+        <p><strong>Découverte par :</strong> <span th:text="${planete.utilisateur.nom}">Utilisateur</span></p>
+        <p><strong>Description :</strong> <span th:text="${planete.description}">Description</span></p>
+        <p><strong>Position X :</strong> <span th:text="${planete.positionX}">X</span></p>
+        <p><strong>Position Y :</strong> <span th:text="${planete.positionY}">Y</span></p>
+        <p><strong>Type :</strong> <span th:text="${planete.type}">Type</span></p>
+        <p><strong>Habitable :</strong> <span th:text="${planete.habitable ? 'Oui' : 'Non'}">Oui/Non</span></p>
+
+<!--        <div class="actions" sec:authorize="isAuthenticated() and principal.username == ownerUsername">-->
+<!--            <a th:href="@{'/Planetes/modifier/' + ${planete.id}}" class="btn edit">✏️ Modifier</a>-->
+<!--            <a th:href="@{'/Planetes/supprimer/' + ${planete.id}}" class="btn delete"-->
+<!--               onclick="return confirm('Supprimer cette planète ?')">🗑️ Supprimer</a>-->
+<!--        </div>-->
+    </div>
+</section>
+
+
+</body>
+</html>
