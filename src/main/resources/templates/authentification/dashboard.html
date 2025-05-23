@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<section layout:fragment="content" class="dashboard-container">
+
+    <div class="dashboard-header">
+        <h1>Mes Planètes</h1>
+        <a href="/Planetes/creer" class="btn-add">+ Ajouter une planète</a>
+    </div>
+
+    <div class="card-grid">
+        <div th:each="planete : ${planetes}" class="card">
+            <h2 th:text="${planete.nom}">Nom planète</h2>
+            <p><strong>Position X:</strong> <span th:text="${planete.positionX}"></span></p>
+            <p><strong>Position Y:</strong> <span th:text="${planete.positionY}"></span></p>
+            <p><strong>Type:</strong> <span th:text="${planete.type}"></span></p>
+            <p><strong>Habitable:</strong> <span th:text="${planete.habitable ? 'Oui' : 'Non'}"></span></p>
+
+            <div class="card-buttons">
+                <a th:href="@{'/Planetes/modifier/' + ${planete.id}}" class="btn-edit">✏️ Modifier</a>
+                <a th:href="@{'/Planetes/supprimer/' + ${planete.id}}"
+                   class="btn-delete"
+                   onclick="return confirm('Voulez-vous vraiment supprimer cette planète ?')">🗑️ Supprimer</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>

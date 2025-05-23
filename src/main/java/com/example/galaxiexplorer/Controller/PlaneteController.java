@@ -56,7 +56,7 @@ public class PlaneteController {
     public String details(@PathVariable Long id, Model model) {
         Planete planete = planeteService.getPlaneteById(id).orElse(null);
         model.addAttribute("planete", planete);
-        return "authentification/planete/details"; // ta page detail.html
+        return "authentification/planete/details";
     }
 
     @GetMapping("/Planetes/modifier/{id}")
