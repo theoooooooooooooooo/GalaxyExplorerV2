@@ -49,7 +49,7 @@ public class PlaneteController {
             planeteService.addPlanete(planete);
         }
 
-        return "redirect:/";
+        return "redirect:/dashboard";
     }
 
     @GetMapping("/Planetes/details/{id}")

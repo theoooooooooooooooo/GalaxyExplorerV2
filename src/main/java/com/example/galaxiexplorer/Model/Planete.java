@@ -1,5 +1,7 @@
 package com.example.galaxiexplorer.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +23,7 @@ public class Planete {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "galaxy_id")
+    @JsonIgnore
     private Galaxy galaxy;
 
     @ManyToOne
