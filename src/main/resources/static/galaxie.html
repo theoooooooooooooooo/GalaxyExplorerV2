@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Carte Stellaire</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            font-family: 'Orbitron', sans-serif;
+            color: #ffffff;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #menu {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #00f0ff55;
+            box-shadow: 0 0 12px #00f0ff33;
+            backdrop-filter: blur(4px);
+        }
+
+        #menu button {
+            margin: 6px;
+            padding: 10px 18px;
+            border: 1px solid #00f0ff88;
+            border-radius: 8px;
+            background: #00f0ff22;
+            color: #00f0ff;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px #00f0ff44;
+        }
+
+        #menu button:hover {
+            background: #00f0ff44;
+            box-shadow: 0 0 12px #00f0ff88;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="menu">
+    <button id="retour">← Retour</button>
+</div>
+
+<script type="module">
+    import * as THREE from 'https://esm.sh/three@0.160.1';
+    import { OrbitControls } from 'https://esm.sh/three@0.160.1/examples/jsm/controls/OrbitControls.js';
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 5, 30);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    // Fond spatial
+    const loader = new THREE.TextureLoader();
+    loader.load('/images/star_background.jpg', texture => {
+        scene.background = texture;
+    });
+    // Étoiles
+    function createStar() {
+        const starGeo = new THREE.SphereGeometry(0.05, 12, 12);
+        const starMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const star = new THREE.Mesh(starGeo, starMat);
+        star.position.set(
+            (Math.random() - 0.5) * 100,
+            (Math.random() - 0.5) * 100,
+            (Math.random() - 0.5) * 100
+        );
+        scene.add(star);
+    }
+
+    // Lumière améliorée
+    scene.add(new THREE.AmbientLight(0xffffff, 1)); // lumière ambiante forte
+    const dirLight = new THREE.DirectionalLight(0xffffff, 2.5); // directionnelle puissante
+    dirLight.position.set(20, 20, 20);
+    scene.add(dirLight);
+
+    // Groupe général
+    const planetGroup = new THREE.Group();
+    scene.add(planetGroup);
+
+    // Couleurs dégradées
+    function getGradientMaterial(type) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 256;
+        canvas.height = 256;
+        const ctx = canvas.getContext('2d');
+
+        let gradient = ctx.createRadialGradient(128, 128, 20, 128, 128, 128);
+
+        switch (type?.toUpperCase()) {
+            case 'TERRE':
+                gradient.addColorStop(0, '#3a9bdc');
+                gradient.addColorStop(1, '#2ecc71');
+                break;
+            case 'GAZ':
+                gradient.addColorStop(0, '#e67e22');
+                gradient.addColorStop(1, '#f1c40f');
+                break;
+            case 'GLACEE':
+                gradient.addColorStop(0, '#00ffff');
+                gradient.addColorStop(1, '#ffffff');
+                break;
+            case 'ROCHEUSE':
+                gradient.addColorStop(0, '#7f5a3a');
+                gradient.addColorStop(1, '#cccccc');
+                break;
+            case 'DESERT':
+                gradient.addColorStop(0, '#f8b67a');
+                gradient.addColorStop(1, '#c88c59');
+                break;
+            default:
+                gradient.addColorStop(0, '#8e44ad');
+                gradient.addColorStop(1, '#ffffff');
+        }
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 256, 256);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        return new THREE.MeshStandardMaterial({ map: texture });
+    }
+
+    // Rendu des planètes pour une galaxie donnée
+    function showGalaxy(galaxy) {
+        planetGroup.clear();
+
+        const center = new THREE.Mesh(
+            new THREE.SphereGeometry(1.5, 32, 32),
+            new THREE.MeshBasicMaterial({map: loader.load('/textures/sun.png')})
+        );
+        planetGroup.add(center);
+
+        galaxy.planetes.forEach((planete, index) => {
+            const angle = (index / galaxy.planetes.length) * Math.PI * 2;
+            const radius = 5 + index * 2;
+            const mesh = new THREE.Mesh(
+                new THREE.SphereGeometry(0.7, 32, 32),
+                getGradientMaterial(planete.type)
+            );
+            mesh.position.x = Math.cos(angle) * radius;
+            mesh.position.z = Math.sin(angle) * radius;
+            mesh.userData = planete;
+            planetGroup.add(mesh);
+        });
+    }
+
+    // Charger galaxies + ajouter boutons
+    fetch('/api/galaxies')
+        .then(res => res.json())
+        .then(galaxies => {
+            const menu = document.getElementById('menu');
+            galaxies.forEach(galaxy => {
+                const btn = document.createElement('button');
+                btn.textContent = galaxy.nom;
+                btn.onclick = () => showGalaxy(galaxy);
+                menu.appendChild(btn);
+            });
+
+            // Affiche la première galaxie par défaut
+            if (galaxies.length > 0) {
+                showGalaxy(galaxies[0]);
+            }
+        });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        planetGroup.rotation.y += 0.003;
+        controls.update();
+        renderer.render(scene, camera);
+    }
+    animate();
+    // Gestion du clic
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    window.addEventListener('click', (event) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(planetGroup.children);
+
+        if (intersects.length > 0) {
+            const object = intersects[0].object;
+            const data = object.userData;
+
+            if (data && data.nom) {
+                const params = new URLSearchParams({
+                    nom: data.nom,
+                    type: data.type,
+                    positionX: object.position.x.toFixed(2),
+                    positionY: object.position.y.toFixed(2),
+                    habitable: data.habitable
+                });
+                window.location.href = `/planete.html?${params.toString()}`;
+
+            }
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+        document.getElementById("retour").addEventListener("click", () => {
+        window.location.href = "/";
+    });
+</script>
+</body>
+</html>
