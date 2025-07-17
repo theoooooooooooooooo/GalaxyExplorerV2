@@ -18,7 +18,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/", "/login", "/register", "/Galaxy/creer", "/Galaxy/enregistrer", "/css/**", "/Planetes/details/**", "/galaxie.html", "/planete.html", "/images/**", "/api/**").permitAll()
+                    .requestMatchers("/", "/login", "/register", "/Galaxy/creer", "/Galaxy/enregistrer",
+                            "/css/**", "/textures/**", "/Planetes/details/**", "/galaxie.html",
+                            "/planete.html", "/images/**", "/api/**").permitAll()
                     .anyRequest().authenticated()
                 )
                     .formLogin(login -> login

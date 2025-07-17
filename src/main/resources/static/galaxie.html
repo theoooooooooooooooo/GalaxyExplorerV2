@@ -62,6 +62,7 @@
 <script type="module">
     import * as THREE from 'https://esm.sh/three@0.160.1';
     import { OrbitControls } from 'https://esm.sh/three@0.160.1/examples/jsm/controls/OrbitControls.js';
+    import { sRGBEncoding } from 'https://esm.sh/three@0.160.1';
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -71,32 +72,26 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
+    // ✅ Appliquer le bon encodage et réglage du tonemapping
+    renderer.outputEncoding = sRGBEncoding;
+    renderer.toneMappingExposure = 0.6; // diminue un peu la luminosité globale
+
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
-    // Fond spatial
+    // ✅ Charger une image de fond sombre avec bon encodage
     const loader = new THREE.TextureLoader();
-    loader.load('/images/star_background.jpg', texture => {
+    loader.load('/textures/star_background.jpg', texture => {
+        texture.encoding = sRGBEncoding;
         scene.background = texture;
     });
-    // Étoiles
-    function createStar() {
-        const starGeo = new THREE.SphereGeometry(0.05, 12, 12);
-        const starMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-        const star = new THREE.Mesh(starGeo, starMat);
-        star.position.set(
-            (Math.random() - 0.5) * 100,
-            (Math.random() - 0.5) * 100,
-            (Math.random() - 0.5) * 100
-        );
-        scene.add(star);
-    }
 
-    // Lumière améliorée
-    scene.add(new THREE.AmbientLight(0xffffff, 1)); // lumière ambiante forte
-    const dirLight = new THREE.DirectionalLight(0xffffff, 2.5); // directionnelle puissante
+    // ✅ Éclairage plus doux
+    scene.add(new THREE.AmbientLight(0xffffff, 0.3)); // lumière ambiante douce
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8); // lumière directionnelle modérée
     dirLight.position.set(20, 20, 20);
     scene.add(dirLight);
+
 
     // Groupe général
     const planetGroup = new THREE.Group();
@@ -148,11 +143,13 @@
     function showGalaxy(galaxy) {
         planetGroup.clear();
 
-        const center = new THREE.Mesh(
-            new THREE.SphereGeometry(1.5, 32, 32),
-            new THREE.MeshBasicMaterial({map: loader.load('/textures/sun.png')})
-        );
-        planetGroup.add(center);
+
+        loader.load('/textures/sun.png', (texture) => {
+            const sphereGeo = new THREE.SphereGeometry(1.5, 32, 32);
+            const sphereMat = new THREE.MeshBasicMaterial({ map: texture });
+            const sunMesh = new THREE.Mesh(sphereGeo, sphereMat);
+            planetGroup.add(sunMesh);
+        });
 
         galaxy.planetes.forEach((planete, index) => {
             const angle = (index / galaxy.planetes.length) * Math.PI * 2;
